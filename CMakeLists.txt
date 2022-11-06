@@ -3,4 +3,4 @@ project(FDE_com_prioridade C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(FDE_com_prioridade main.c)
+add_executable(FDE_com_prioridade main.c FILA.c FILA.h)
