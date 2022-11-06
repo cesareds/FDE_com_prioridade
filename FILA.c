@@ -14,32 +14,34 @@ void inserir(Fila *fila, int num){
     if(novo){
         novo->valor= num;
         novo->proximo=NULL;
+        novo->anterior=NULL;
         if(fila->primeiro==NULL){
             fila->primeiro=novo;
             fila->fim=novo;
         }else{
-            if(num>59){ //testa se é prioridade
-                if(fila->primeiro->valor<59){  //testa se é a 1º prioridade
-                    novo->proximo=fila->primeiro;
-                    fila->primeiro=novo;
-                }else{
+            if(num>59){                                     //testa se é prioridade
+                if(fila->primeiro->valor<59){               //testa se é a 1º prioridade
+                    novo->proximo=fila->primeiro;           //o primeiro da fila se torna o proximo do nulo
+                    fila->primeiro=novo;                    //o novo se torna o primeiro
+                }else{                                      //não é a primeira prioridade, portanto caminhará até o último em prioridade
                     aux=fila->primeiro;
 
-                    if(aux->proximo!=NULL){
-                        while (aux->proximo->valor>59){
-                            aux=aux->proximo;
-                            if (aux->proximo == NULL)
-                            {
-                                break;
+                    if(aux->proximo!=NULL){                 //testa se existe um próximo na fila
+                        while (aux->proximo->valor>59){     //testa se o próximo da fila ainda é prioridade
+                            aux=aux->proximo;               //caminha um nó na fila
+                            if (aux->proximo == NULL){
+                                break;                      //caso não exista um próximo, sai do loop
                             }
                         }
-                        novo->proximo = aux->proximo;
-                        aux->proximo = novo;
+                        novo->proximo = aux->proximo;       //o proximo do novo se torna o proximo de onde paramos na fila
+                        novo->anterior = aux;               //o anterior do novo se torna o atual de onde paramos na fila
+                        aux->proximo = novo;                //insere o novo na fila
                     }
                 }
             }else{
-                fila->fim->proximo=novo;
-                fila->fim=novo;
+                novo->anterior=fila->fim;                   //anterior do novo aponta para a cauda atual
+                fila->fim->proximo=novo;                    //encadeia o novo no próximo do fim
+                fila->fim=novo;                             //cauda da fila agora é o novo
             }
 
         }
@@ -72,11 +74,51 @@ void imprimir(Fila *fila){
 
 
 
-int buscaNaFrente(No *no, Fila *p){
-    int ret = 0;
-    if(p->primeiro!=NULL&&p->fim!=NULL){
-        memcpy(no, &(p->primeiro->valor), p->tam);
-        ret=1;
+int buscaNaFrente(int *num, Fila *fila){
+    int x = 0;
+    if(fila->primeiro&&fila->fim){              //testa se existe um primeiro e um último
+        *num = fila->primeiro->valor;
+        x=1;
     }
-    return ret;
+    return x;
 }
+int buscaNaCauda(int *num, Fila *fila){
+    int x = 0;
+    if(fila->fim&&fila->primeiro){
+        *num = fila->fim->valor;
+        x = 1;
+    }
+    return x;
+}
+int buscaReferencialMovel(int *num, Fila *fila){
+    int x = 0;
+    if(fila->refMovel){
+        *num = fila->refMovel->valor;
+        x = 1;
+    }
+    return x;
+}
+int reinicia(Fila *fila){
+    int x=0;
+    No *aux=NULL;
+
+    if(fila->primeiro&&fila->fim){
+        aux = fila->fim->proximo;
+        while(aux){
+            free(fila->fim);
+            fila->fim = aux;
+            aux = aux->proximo;
+        }
+        free(fila->fim);
+        fila->primeiro = NULL;
+        fila->fim = NULL;
+        x=1;
+    }
+    return x;
+}
+Fila *destroi(Fila *fila){
+    reinicia(fila);
+    free(fila);
+    return NULL;
+}
+

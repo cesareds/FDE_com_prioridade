@@ -13,11 +13,11 @@ typedef struct no{
     struct no *proximo;
     struct no *anterior;
 }No;
-typedef struct {
+typedef struct{
     No *primeiro;
     No *fim;
+    No *refMovel;
     int tam;
-
 }Fila;
 
 
@@ -26,5 +26,11 @@ void criaFila(Fila *fila);
 void inserir(Fila *fila, int num);
 No* remover(Fila *fila);
 void imprimir(Fila *fila);
-int buscaNaFrente(No *no, Fila *p);
+int buscaNaFrente(int *num, Fila *fila);
+int buscaNaCauda(int *num, Fila *fila);
+int buscaReferencialMovel(int *num, Fila *fila);
+int reinicia(Fila *fila);
+Fila *destroi(Fila *fila);
+
+
 #endif //FDE_COM_PRIORIDADE_FILA_H
