@@ -31,6 +31,9 @@ int buscaNaCauda(int *num, Fila *fila);
 int buscaReferencialMovel(int *num, Fila *fila);
 int reinicia(Fila *fila);
 Fila *destroi(Fila *fila);
+int retiraDaFila(int *num, Fila *fila);
+int testaVazia(Fila *fila);
+void inverte(Fila *fila);
 
 
 #endif //FDE_COM_PRIORIDADE_FILA_H

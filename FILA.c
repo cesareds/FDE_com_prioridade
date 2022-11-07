@@ -7,6 +7,7 @@ void criaFila(Fila *fila){
     fila->primeiro=NULL;
     fila->tam=0;
     fila->fim=NULL;
+    fila->refMovel = NULL;
 }
 
 void inserir(Fila *fila, int num){
@@ -18,11 +19,13 @@ void inserir(Fila *fila, int num){
         if(fila->primeiro==NULL){
             fila->primeiro=novo;
             fila->fim=novo;
+            fila->refMovel=novo;
         }else{
             if(num>59){                                     //testa se é prioridade
                 if(fila->primeiro->valor<59){               //testa se é a 1º prioridade
                     novo->proximo=fila->primeiro;           //o primeiro da fila se torna o proximo do nulo
-                    fila->primeiro=novo;                    //o novo se torna o primeiro
+                    fila->primeiro=novo;
+                    fila->refMovel=novo;                    //o novo se torna o primeiro
                 }else{                                      //não é a primeira prioridade, portanto caminhará até o último em prioridade
                     aux=fila->primeiro;
 
@@ -121,4 +124,41 @@ Fila *destroi(Fila *fila){
     free(fila);
     return NULL;
 }
+int retiraDaFila(int *num, Fila *fila){
+    int x = 0;
+    if(fila->primeiro){
+        No *aux = fila->primeiro;
+        while (aux->proximo->valor != *num){
+            aux=aux->proximo;
+            if (aux->proximo == NULL){
+                break;                      //caso não exista um próximo, sai do loop
+            }
+        }
+        *num = aux->valor;
+        x = 1;
+    }
+    return x;
+}
+int testaVazia(Fila *fila){
+    if(fila){
+        if(fila->primeiro||fila->fim||fila->refMovel){
+            return 0;
+        }
+        return 1;
+    }
+    return 1;
+}
+void inverte(Fila *fila){
+    No *tmp, *aux = fila->primeiro;
+    while(aux){
+        tmp= aux->proximo;
+        aux->proximo= aux->anterior;
+        aux->anterior=tmp;
+        aux=aux->anterior;
+    }
+    tmp = fila->primeiro;
+    fila->primeiro=fila->fim;
+    fila->fim= tmp;
+}
+
 
