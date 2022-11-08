@@ -4,6 +4,7 @@
 
 #ifndef FDE_COM_PRIORIDADE_FILA_H
 #define FDE_COM_PRIORIDADE_FILA_H
+#define PRIORIDADE 60
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,7 +24,7 @@ typedef struct{
 
 void criaFila(Fila *fila);
 
-void inserir(Fila *fila, int num);
+void inserir(Fila *fila, int num);  //refMovel é o último prioritário da fila
 No* remover(Fila *fila);
 void imprimir(Fila *fila);
 int buscaNaFrente(int *num, Fila *fila);

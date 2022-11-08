@@ -9,7 +9,6 @@ void criaFila(Fila *fila){
     fila->fim=NULL;
     fila->refMovel = NULL;
 }
-
 void inserir(Fila *fila, int num){
     No *aux, *novo = malloc(sizeof(No));
     if(novo){
@@ -21,25 +20,17 @@ void inserir(Fila *fila, int num){
             fila->fim=novo;
             fila->refMovel=novo;
         }else{
-            if(num>59){                                     //testa se é prioridade
-                if(fila->primeiro->valor<59){               //testa se é a 1º prioridade
-                    novo->proximo=fila->primeiro;           //o primeiro da fila se torna o proximo do nulo
+            if(num>PRIORIDADE){
+                if(fila->primeiro->valor<PRIORIDADE){
+                    novo->proximo=fila->primeiro;
                     fila->primeiro=novo;
-                    fila->refMovel=novo;                    //o novo se torna o primeiro
-                }else{                                      //não é a primeira prioridade, portanto caminhará até o último em prioridade
-                    aux=fila->primeiro;
-
-                    if(aux->proximo!=NULL){                 //testa se existe um próximo na fila
-                        while (aux->proximo->valor>59){     //testa se o próximo da fila ainda é prioridade
-                            aux=aux->proximo;               //caminha um nó na fila
-                            if (aux->proximo == NULL){
-                                break;                      //caso não exista um próximo, sai do loop
-                            }
-                        }
-                        novo->proximo = aux->proximo;       //o proximo do novo se torna o proximo de onde paramos na fila
-                        novo->anterior = aux;               //o anterior do novo se torna o atual de onde paramos na fila
-                        aux->proximo = novo;                //insere o novo na fila
-                    }
+                    fila->refMovel=novo;
+                }else{
+                    novo->anterior=fila->refMovel;              //anterior do novo aponta para o referencial móvel, para que ele seja o próximo
+                    novo->proximo=fila->refMovel->proximo;      //o seguinte do refMovel será o seguinte do novo
+                    fila->refMovel->proximo->anterior=novo;     //o anterior do antigo "proximo" do refMovel será o novo
+                    fila->refMovel->proximo=novo;               //o proximo do refMovel será o novo também, assim sendo inserido entre eles
+                    fila->refMovel=novo;                        //define o novo para ser o novo refMovel;
                 }
             }else{
                 novo->anterior=fila->fim;                   //anterior do novo aponta para a cauda atual
@@ -73,9 +64,6 @@ void imprimir(Fila *fila){
     }
     printf("\n--------FIM FILA--------\n");
 }
-
-
-
 
 int buscaNaFrente(int *num, Fila *fila){
     int x = 0;
