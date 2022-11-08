@@ -103,6 +103,7 @@ int reinicia(Fila *fila){
         free(fila->fim);
         fila->primeiro = NULL;
         fila->fim = NULL;
+        fila->refMovel=NULL;
         x=1;
     }
     return x;
@@ -148,5 +149,3 @@ void inverte(Fila *fila){
     fila->primeiro=fila->fim;
     fila->fim= tmp;
 }
-
-

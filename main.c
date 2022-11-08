@@ -48,14 +48,35 @@ int main() {
                 printf("%i\n", y);
                 break;
             case 7:
+                if(reinicia(&fila)){
+                    printf("Reiniciou a fila");
+                }
                 break;
+                Fila *fila2;
             case 8:
+                fila2 = destroi(&fila);
                 break;
             case 9:
+                printf("\n\tInsira o elemento que deseja retirar\t\n");
+                scanf(" %i", &y);
+                printf("\nvoce inseriu\t%i\n", y);
+                if(retiraDaFila(&y, &fila)){
+                    printf("\nretirado da fila\n");
+                }
                 break;
             case 10:
+                if(testaVazia(&fila)){
+                    printf("\na fila está vazia\n");
+                } else{
+                    printf("\na fila nao está vazia\n");
+                }
                 break;
             case 11:
+                printf("\nantes:\n");
+                imprimir(&fila);
+                inverte(&fila);
+                printf("\ndepois:\n");
+                imprimir(&fila);
                 break;
 
             default:
