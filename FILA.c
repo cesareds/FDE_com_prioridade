@@ -113,17 +113,20 @@ Fila *destroi(Fila *fila){
     free(fila);
     return NULL;
 }
-int retiraDaFila(int *num, Fila *fila){
+int retiraDaFila(int num, Fila *fila){
     int x = 0;
     if(fila->primeiro){
         No *aux = fila->primeiro;
-        while (aux->proximo->valor != *num){
+        while (aux->proximo->valor != num){
             aux=aux->proximo;
             if (aux->proximo == NULL){
                 break;                      //caso não exista um próximo, sai do loop
             }
         }
-        *num = aux->valor;
+        aux=aux->proximo;
+        aux->anterior=aux;
+        fila->tam--;
+        num = aux->valor;
         x = 1;
     }
     return x;

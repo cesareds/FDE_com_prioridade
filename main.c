@@ -60,7 +60,7 @@ int main() {
                 printf("\n\tInsira o elemento que deseja retirar\t\n");
                 scanf(" %i", &y);
                 printf("\nvoce inseriu\t%i\n", y);
-                if(retiraDaFila(&y, &fila)){
+                if(retiraDaFila(y, &fila)){
                     printf("\nretirado da fila\n");
                 }
                 break;

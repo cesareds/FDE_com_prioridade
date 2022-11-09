@@ -32,7 +32,7 @@ int buscaNaCauda(int *num, Fila *fila);
 int buscaReferencialMovel(int *num, Fila *fila);
 int reinicia(Fila *fila);
 Fila *destroi(Fila *fila);
-int retiraDaFila(int *num, Fila *fila);
+int retiraDaFila(int num, Fila *fila);
 int testaVazia(Fila *fila);
 void inverte(Fila *fila);
 
