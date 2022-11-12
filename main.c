@@ -17,7 +17,18 @@ int main() {
             case 1:
                 printf("\nInsira um valor\n");
                 scanf("%i", &valor);
-                inserir(&fila, valor);
+                printf("\nInsira o nome\n");
+                char nome[30];
+                scanf(" %s", nome);
+                Pessoa *pessoa = malloc(sizeof (Pessoa));
+                pessoa->idade=valor;
+                printf("\n %i \n", pessoa->idade);
+                for(int i = 0; i<15; i++){
+                    pessoa->nome[i]=nome[i];
+                }
+                printf("%s", pessoa->nome);
+                printf("%i\n", pessoa->idade);
+                inserir(&fila, pessoa);
                 break;
             case 2:
                 r=remover(&fila);
@@ -77,6 +88,14 @@ int main() {
                 inverte(&fila);
                 printf("\ndepois:\n");
                 imprimir(&fila);
+                break;
+            case 12:
+                printf("\nantes:\n");
+                imprimir(&fila);
+                inverte2(&fila);
+                printf("\ndepois:\n");
+                imprimir(&fila);
+
                 break;
 
             default:

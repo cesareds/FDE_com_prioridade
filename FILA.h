@@ -9,8 +9,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct{
+    int idade;
+    char nome[30];
+}Pessoa;
 typedef struct no{
     int valor;
+    Pessoa pessoa;
     struct no *proximo;
     struct no *anterior;
 }No;
@@ -24,7 +29,7 @@ typedef struct{
 
 void criaFila(Fila *fila);
 
-void inserir(Fila *fila, int num);  //refMovel é o último prioritário da fila
+void inserir(Fila *fila, Pessoa *pessoa);  //refMovel é o último prioritário da fila
 No* remover(Fila *fila);
 void imprimir(Fila *fila);
 int buscaNaFrente(int *num, Fila *fila);
@@ -35,6 +40,7 @@ Fila *destroi(Fila *fila);
 int retiraDaFila(int num, Fila *fila);
 int testaVazia(Fila *fila);
 void inverte(Fila *fila);
+void inverte2(Fila *fila);
 
 
 #endif //FDE_COM_PRIORIDADE_FILA_H

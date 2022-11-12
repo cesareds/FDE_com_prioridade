@@ -9,10 +9,11 @@ void criaFila(Fila *fila){
     fila->fim=NULL;
     fila->refMovel = NULL;
 }
-void inserir(Fila *fila, int num){
+void inserir(Fila *fila, Pessoa *pessoa){
     No *aux, *novo = malloc(sizeof(No));
     if(novo){
-        novo->valor= num;
+        novo->valor= pessoa->idade;
+        novo->pessoa = *pessoa;
         novo->proximo=NULL;
         novo->anterior=NULL;
         if(fila->primeiro==NULL){
@@ -20,8 +21,8 @@ void inserir(Fila *fila, int num){
             fila->fim=novo;
             fila->refMovel=novo;
         }else{
-            if(num>PRIORIDADE){
-                if(fila->primeiro->valor<PRIORIDADE){
+            if(pessoa->idade>PRIORIDADE){
+                if(fila->primeiro->pessoa.idade<PRIORIDADE){
                     novo->proximo=fila->primeiro;
                     fila->primeiro=novo;
                     fila->refMovel=novo;
@@ -59,7 +60,7 @@ void imprimir(Fila *fila){
     No *aux = fila->primeiro;
     printf("\n----------FILA----------\n\t");
     while (aux) {
-        printf("%i\t", aux->valor);
+        printf("%s: %i\t", aux->pessoa.nome, aux->pessoa.idade);
         aux=aux->proximo;
     }
     printf("\n--------FIM FILA--------\n");
@@ -151,4 +152,26 @@ void inverte(Fila *fila){
     tmp = fila->primeiro;
     fila->primeiro=fila->fim;
     fila->fim= tmp;
+}
+void inverte2(Fila *fila){
+    if(testaVazia(fila)){
+        printf("\nFila vazia!\n");
+        return;
+    }
+    No *aux = fila->fim->anterior;
+    Fila *invertida = NULL;
+    criaFila(invertida);
+    invertida->primeiro=fila->fim;
+    invertida->fim=fila->primeiro;
+    No *auxInvertido = invertida->primeiro;
+    while (aux){
+        auxInvertido->proximo=aux->anterior->anterior;
+        auxInvertido=aux->anterior;
+        auxInvertido->anterior=aux;
+
+        aux=aux->anterior;
+        auxInvertido=auxInvertido->proximo;
+    }
+
+
 }
